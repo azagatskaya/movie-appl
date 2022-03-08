@@ -1,22 +1,41 @@
 "use strict";
 
-let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?');
-let personalMovieDB = {
-	count: 0,
+const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?');
+const personalMovieDB = {
+	count: numberOfFilms,
 	movies: {},
 	actors: {},
 	genres: [],
 	private: false
 };
 
-personalMovieDB.count = numberOfFilms;
+switch (true) {
+	case (personalMovieDB.count < 10):
+		alert("Просмотрено довольно мало фильмов");
+		break;
+	case (10 <= personalMovieDB.count && personalMovieDB.count <= 30):
+		alert("Вы классический зритель");
+		break;
+	case (30 < personalMovieDB.count):
+		alert("Вы киноман");
+		break;
+	default:
+		alert("Произошла ошибка");
+
+}
+
 for (let i = 0; i < 2; i++){
 	addFilm();
 }
 
 function addFilm() {
-	let filmName = prompt('Один из последних просмотренных фильмов?');
-	let filmRate = prompt('На сколько оцените его?');
+	let filmName = null,
+		filmRate = null;
+	do {
+		filmName = prompt('Один из последних просмотренных фильмов?', '');
+		filmRate = +prompt('На сколько оцените его?', '');
+	} while (filmName == null || filmRate == null || filmName == false ||
+	filmRate == false || filmName.length > 50);
 	personalMovieDB.movies[filmName] = filmRate;
 }
 console.log(personalMovieDB);
